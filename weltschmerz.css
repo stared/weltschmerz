@@ -1,0 +1,21 @@
+.x-axis path,
+.x-axis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+}
+
+.x-axis text {
+    font-family: sans-serif;
+    font-size: 11px;
+}
+
+.lines line {
+    stroke: red;
+    stroke-width: 2px;
+}
+
+.labels text {
+    font-family: sans-serif;
+    font-size: 11px;
+}

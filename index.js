@@ -87,17 +87,17 @@ function draw (allSuggestions) {
   console.log(allSuggestions);
 
   var svg = d3.select('#plot').append('svg')
-    .attr('width', 800)
+    .attr('width', 900)
     .attr('height', 600);
 
   
   var scaleX = d3.scale.linear()
     .domain([ageMin - 0.5, ageMax + 0.5])
-    .range([100, 700]);
+    .range([50, 650]);
 
   var scaleY = d3.scale.linear()
     .domain([0, 1])
-    .range([100, 110]);
+    .range([70, 90]);
 
   var xAxis = d3.svg.axis()
     .scale(scaleX)
@@ -115,7 +115,7 @@ function draw (allSuggestions) {
       .append('g')
         .attr('class', 'lines')
         .attr('transform', function (d, i) {
-          return 'translate(' + 0 + ',' + (100 + 10*i) + ')';
+          return 'translate(' + 0 + ',' + scaleY(i) + ')';
         });
 
   lines.selectAll('line')
@@ -124,5 +124,16 @@ function draw (allSuggestions) {
       .append('line')
         .attr('x1', function (d) { return scaleX(d - 0.5); })
         .attr('x2', function (d) { return scaleX(d + 0.5); });
+
+  var labels = svg.append('g')
+    .attr('class', 'labels')
+    .attr('transform', 'translate(' + (scaleX(ageMax + 0.5) + 5) + ',' + 0 + ')');
+
+  labels.selectAll('text')
+    .data(allSuggestions)
+    .enter()
+      .append('text')
+        .attr('y', function (d, i) { return scaleY(i); })
+        .text(function (d) { return d.suggestion; });
 
 } 
