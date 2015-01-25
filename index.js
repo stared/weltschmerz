@@ -20,17 +20,31 @@ function fetchForAge (query, age, ageMax) {
   console.log("Quering for: ", queryFilled);
 
   $.getJSON(queryBegin + queryFilled + queryEnd, function (data) {
-    
-    console.log(data[0]);
+
+    var suggestions = data[1].filter(function (d) {
+      d.indexOf(queryFilled) > -1;
+    });
     allSuggestions.push({
       age:         age,
-      suggestions: data[1]
+      suggestions: suggestions
     });
 
     if (age < ageMax) {
       fetchForAge (query, age + 1, ageMax);
+    } else {
+      draw();  // later it will be updated with each step
     }
 
   });
 
 }
+
+function draw () {
+
+  var svg = d3.select('#plot').append('svg')
+    .attr('width', 800)
+    .attr('height', 600);
+
+  //
+
+} 
