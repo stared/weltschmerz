@@ -77,16 +77,52 @@ function processData (allSuggestionsRaw) {
 
 function draw (allSuggestions) {
 
+
+  d3.select('#plot svg').remove();
+
+  allSuggestions = allSuggestions.filter(function (d) {
+    return d.ages.length > 1;
+  });
+
   console.log(allSuggestions);
 
   var svg = d3.select('#plot').append('svg')
     .attr('width', 800)
     .attr('height', 600);
 
-  // some initial calculations
   
+  var scaleX = d3.scale.linear()
+    .domain([ageMin - 0.5, ageMax + 0.5])
+    .range([100, 700]);
 
+  var scaleY = d3.scale.linear()
+    .domain([0, 1])
+    .range([100, 110]);
 
-  //
+  var xAxis = d3.svg.axis()
+    .scale(scaleX)
+    .orient('top')
+    .tickSize(6);
+
+  svg.append('g')
+    .attr('class', 'x-axis')
+    .attr('transform', 'translate(' + 0 + ',' + 50 + ')')
+    .call(xAxis);
+
+  var lines = svg.append('g').selectAll('.lines')
+    .data(allSuggestions)
+    .enter()
+      .append('g')
+        .attr('class', 'lines')
+        .attr('transform', function (d, i) {
+          return 'translate(' + 0 + ',' + (100 + 10*i) + ')';
+        });
+
+  lines.selectAll('line')
+    .data(function (d) { return d.ages; })
+    .enter()
+      .append('line')
+        .attr('x1', function (d) { return scaleX(d - 0.5); })
+        .attr('x2', function (d) { return scaleX(d + 0.5); });
 
 } 
