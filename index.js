@@ -1,7 +1,7 @@
 
 // I will change to input
 var ageMin = 12;
-var ageMax = 20;
+var ageMax = 50;
 
 var queryBegin = "http://suggestqueries.google.com/complete/search?client=chrome&q=";
 var queryEnd = "&callback=?";
@@ -9,6 +9,7 @@ var queryEnd = "&callback=?";
 var allSuggestionsRaw = [];
 
 d3.select('#go').on('click', function () {
+  d3.event.preventDefault();
   allSuggestionsRaw = [];
   var query = d3.select('#query').attr('value');
   fetchForAge(query, ageMin, ageMax);
