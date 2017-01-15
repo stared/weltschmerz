@@ -11,7 +11,8 @@ var allSuggestionsRaw = [];
 d3.select('#go').on('click', function () {
   d3.event.preventDefault();
   allSuggestionsRaw = [];
-  var query = d3.select('#query').attr('value');
+  var query = d3.select('#query').property("value");
+  console.log("query", query);
   fetchForAge(query, ageMin, ageMax);
 });
 
@@ -27,7 +28,7 @@ function fetchForAge (query, age, ageMax) {
         return d.toLowerCase().indexOf(queryFilled.toLowerCase()) > -1;
       })
       .map(function (d) {
-        return d.slice(queryFilled.length + 1);  // so to not have a space
+        return d.slice(queryFilled.length);
       });
 
     allSuggestionsRaw.push({
@@ -64,7 +65,7 @@ function processData (allSuggestionsRaw) {
   for (k in suggestionDict) {
     suggestionArray.push({
       suggestion: k,
-      ages:       suggestionDict[k], 
+      ages:       suggestionDict[k],
     })
   }
 
@@ -91,7 +92,7 @@ function draw (allSuggestions) {
     .attr('width', 900)
     .attr('height', 600);
 
-  
+
   var scaleX = d3.scale.linear()
     .domain([ageMin - 0.5, ageMax + 0.5])
     .range([50, 650]);
@@ -137,4 +138,4 @@ function draw (allSuggestions) {
         .attr('y', function (d, i) { return scaleY(i); })
         .text(function (d) { return d.suggestion; });
 
-} 
+}
