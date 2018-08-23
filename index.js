@@ -17,7 +17,7 @@ function fetchForAge (query, age, ageMin, ageMax) {
 
   var queryFilled = query.replace("X", age);
 
-  d3.select('#progress').html("Quering for: " + queryFilled);
+  d3.select('#progress').html("Querying for: " + queryFilled);
 
   $.getJSON(queryBegin + queryFilled + queryEnd, function (data) {
 
@@ -37,7 +37,7 @@ function fetchForAge (query, age, ageMin, ageMax) {
     if (age < ageMax) {
       fetchForAge (query, age + 1, ageMin, ageMax);
     } else {
-      d3.select('#progress').html("Done!");
+      d3.select('#progress').html("");
       draw(processData(allSuggestionsRaw), ageMin, ageMax);  // later it will be updated with each step
     }
 
