@@ -3,7 +3,7 @@
 var ageMin = 12;
 var ageMax = 50;
 
-var queryBegin = "http://suggestqueries.google.com/complete/search?client=chrome&q=";
+var queryBegin = "https://suggestqueries.google.com/complete/search?client=chrome&q=";
 var queryEnd = "&callback=?";
 
 var allSuggestionsRaw = [];
