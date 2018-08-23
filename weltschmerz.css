@@ -19,3 +19,7 @@
     font-family: sans-serif;
     font-size: 11px;
 }
+
+.form-control.form-num {
+  width: 50px;
+}

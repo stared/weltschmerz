@@ -1,8 +1,3 @@
-
-// I will change to input
-var ageMin = 12;
-var ageMax = 50;
-
 var queryBegin = "https://suggestqueries.google.com/complete/search?client=chrome&q=";
 var queryEnd = "&callback=?";
 
@@ -12,14 +7,17 @@ d3.select('#go').on('click', function () {
   d3.event.preventDefault();
   allSuggestionsRaw = [];
   var query = d3.select('#query').property("value");
+  var ageMin = parseInt(d3.select('#xFrom').property("value"));
+  var ageMax = parseInt(d3.select('#xTo').property("value"));
   console.log("query", query);
-  fetchForAge(query, ageMin, ageMax);
+  fetchForAge(query, ageMin, ageMin, ageMax);
 });
 
-function fetchForAge (query, age, ageMax) {
+function fetchForAge (query, age, ageMin, ageMax) {
 
   var queryFilled = query.replace("X", age);
-  console.log("Quering for: ", queryFilled);
+
+  d3.select('#progress').html("Quering for: " + queryFilled);
 
   $.getJSON(queryBegin + queryFilled + queryEnd, function (data) {
 
@@ -37,9 +35,10 @@ function fetchForAge (query, age, ageMax) {
     });
 
     if (age < ageMax) {
-      fetchForAge (query, age + 1, ageMax);
+      fetchForAge (query, age + 1, ageMin, ageMax);
     } else {
-      draw(processData(allSuggestionsRaw));  // later it will be updated with each step
+      d3.select('#progress').html("Done!");
+      draw(processData(allSuggestionsRaw), ageMin, ageMax);  // later it will be updated with each step
     }
 
   });
@@ -77,16 +76,13 @@ function processData (allSuggestionsRaw) {
 
 }
 
-function draw (allSuggestions) {
-
+function draw (allSuggestions, ageMin, ageMax) {
 
   d3.select('#plot svg').remove();
 
   allSuggestions = allSuggestions.filter(function (d) {
     return d.ages.length > 1;
   });
-
-  console.log(allSuggestions);
 
   var svg = d3.select('#plot').append('svg')
     .attr('width', 900)
