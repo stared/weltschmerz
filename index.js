@@ -123,6 +123,17 @@ function draw (allSuggestions, ageMin, ageMax) {
         .attr('x1', function (d) { return scaleX(d - 0.5); })
         .attr('x2', function (d) { return scaleX(d + 0.5); });
 
+  svg.append('g').selectAll('.guide')
+    .data(allSuggestions)
+    .enter()
+      .append('line')
+        .attr('class', 'guide')
+        .attr('transform', function (d, i) {
+          return 'translate(' + 0 + ',' + scaleY(i) + ')';
+        })
+        .attr('x1', function (d) { return scaleX(d3.min(d.ages) - 0.5); })
+        .attr('x2', function (d) { return scaleX(d3.max(d.ages)+ 0.5); });
+
   var labels = svg.append('g')
     .attr('class', 'labels')
     .attr('transform', 'translate(' + (scaleX(ageMax + 0.5) + 5) + ',' + 0 + ')');
