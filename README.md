@@ -10,6 +10,7 @@ By [@pmigdal](https://twitter.com/pmigdal).
 * [X months since...](https://twitter.com/grzegon/status/1032711004587810816)
 * [X months until...](https://www.facebook.com/groups/datasciencepl/?fb_dtsg_ag=AdyqXiih8VzgW5fn34cme_jfFPgJrE1OYgyPWju22mp6Iw%3AAdwFGz9v9TaXegyd-Lj64qP8U_qeJ50HQ2QYph9tejKeIg)
 * [sleep X...](https://news.ycombinator.com/item?id=17827706)
+* My baby is X months old and...
 * etc, etc...
 
 See also its [Hacker News thread](https://news.ycombinator.com/item?id=17826188).
